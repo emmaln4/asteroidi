@@ -1,0 +1,6 @@
+void pausa() {
+
+}
+
+void pausaClicks() {
+}
