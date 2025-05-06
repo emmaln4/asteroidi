@@ -2,15 +2,25 @@ void fine() {
   
   background(0);
   
-  if (vita == 0) {
+  //if (vita == 0) {
+  //textFont(space);
+  //text("game over", width/2, height/2);
+  //textFont(digital2);
+  //text("highscore: " + highscore, width/2, 500);
+  //} else if (numAsteriodi == 0) {
+  //  textFont(space);
+  //  text("you won!", width/2, height/2);
+  //  textFont(digital2);
+  //  text("highscore: " + highscore, width/2, 500);
+  //}
+  
+ 
+ 
+  fill(255);
   textFont(space);
-  text("game over", width/2, height/2);
+  text(risultatoFinale, width / 2, height / 2);
   textFont(digital2);
   text("highscore: " + highscore, width/2, 500);
-  } else if (numAsteriodi == 0) {
-    textFont(space);
-    text("you won!", width/2, height/2);
-  }
 }
 
 void fineClicks(){
@@ -29,6 +39,7 @@ void nuovoGioco() {
     oggetti.add(new Asteriode(pos, vel, 3));
   }
   
+
   mioAstronave = new Astronave();
   oggetti.add(mioAstronave);
 }

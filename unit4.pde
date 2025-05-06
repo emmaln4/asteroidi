@@ -13,10 +13,12 @@ final int OPZIONI = 4;
 Astronave mioAstronave;
 
 
+
 ArrayList<oggettoGioco> oggetti;
+ArrayList<testoAnimato> testiAnimati;
 
 //varabili tastiera
-boolean leftkey, rightkey, upkey, downkey, spacekey;
+boolean leftkey, rightkey, upkey, downkey, spacekey, zkey;
 
 //gif
 PImage[] gif;
@@ -44,15 +46,26 @@ boolean daGiocatore;
 int tempoInvincibilita = 0;
 
 //slider 
-int slider;
-int difficolta;
+float sliderX;
+float sliderX2;
+
+color coloreProiettile = color(255);
+
+String risultatoFinale = " ";
+
+//telesporto
+int cooldownTeleport = 0;
+boolean teleportDisponibile = true;
+
 
 void setup() {
   mode = INTRO;
   size(800, 800);
   background(0);
+  colorMode(HSB, 255);
 
   oggetti = new ArrayList();
+  testiAnimati = new ArrayList();
   mioAstronave = new Astronave();
   oggetti.add(mioAstronave);
   PVector pos = new PVector(random(width), random(height));
@@ -86,9 +99,13 @@ void setup() {
   space = createFont("space.ttf", 100);
   digital1 = createFont("digital.ttf", 50);
   digital2 = createFont("digital.ttf", 25);
+  
+  //lo slider
+  sliderX = 50;
+  sliderX2 = 50;
 
   //setup tastiera
-  leftkey = rightkey = upkey = downkey = spacekey = false;
+  leftkey = rightkey = upkey = downkey = spacekey = zkey =false;
  
 }
 

@@ -3,6 +3,7 @@ void mouseReleased() {
   else if (mode == GIOCO) giocoClicks();
   else if (mode == FINE) fineClicks();
   else if (mode == PAUSA) pausaClicks();
+  else if (mode == OPZIONI) opzioniClicks();
 }
 
 
@@ -12,6 +13,7 @@ void keyPressed() {
   if (keyCode == UP) upkey = true;
   if (keyCode == DOWN) downkey = true;
   if (key == ' ') spacekey = true;
+  if (key == 'z') zkey = true;
 }
 
 void keyReleased() {
@@ -20,4 +22,5 @@ void keyReleased() {
   if (keyCode == UP) upkey = false;
   if (keyCode == DOWN) downkey = false;
   if (key == ' ') spacekey = false;
+  if (key == 'z') zkey = false;
 }

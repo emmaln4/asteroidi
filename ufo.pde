@@ -1,16 +1,24 @@
 class UFO extends oggettoGioco {
   PVector direzione;
-  int intervalloFuoco = 90;
+  int intervalloFuoco = 60;
   int contatoreFuoco = 0;
   int dimensioneUFO = 40;
 
+  //UFO(PVector posizione, PVector direzione) {
+  //  super(posizione.x, posizione.y, 1, 1);
+  //  this.pos = posizione.copy();
+  //  this.vel = direzione.copy().setMag(2);
+  //  this.direzione = direzione.copy();
+  //  this.vite = 1;
+  //  this.d = dimensioneUFO;
+  //}
+  
+  
   UFO(PVector posizione, PVector direzione) {
-    super(posizione.x, posizione.y, 1, 1);
+    super(posizione.x, posizione.y, 2 * direzione.x, 2 * direzione.y);
     this.pos = posizione.copy();
     this.vel = direzione.copy().setMag(2);
-    this.direzione = direzione.copy();
-    this.vite = 1;
-    this.d = dimensioneUFO;
+    this.d = 40;
   }
 
   void mostra() {
@@ -33,7 +41,7 @@ class UFO extends oggettoGioco {
     pos.add(vel);
     contatoreFuoco++;
 
-    if (contatoreFuoco >= intervalloFuoco) {
+    if (contatoreFuoco > 60) {
       sparaAstronave();
       contatoreFuoco = 0;
     }
@@ -45,17 +53,31 @@ class UFO extends oggettoGioco {
     controllaCollisioni();
   }
 
-  void sparaAstronave() {
-  for (oggettoGioco ogg : oggetti) {
-    if (ogg instanceof Astronave) {
-      PVector versoGiocatore = PVector.sub(ogg.pos, this.pos).normalize();
-      versoGiocatore.setMag(1);
-      println("UFO spara: da " + pos + " verso " + ogg.pos + " con velocità " + versoGiocatore);
-      oggetti.add(new Proiettile(pos.copy(), versoGiocatore, false));
-      break;
+// void sparaAstronave() {
+//  for (oggettoGioco ogg : oggetti) {
+//    if (ogg instanceof Astronave) {
+//      PVector versoGiocatore = PVector.sub(ogg.pos, this.pos);
+//      if (versoGiocatore.mag() < 80) return; // Troppo vicino per sparare
+//      versoGiocatore.normalize();
+//      PVector velocitaProiettile = versoGiocatore.mult(3);  // più lento
+//      oggetti.add(new Proiettile(pos.copy(), velocitaProiettile, false));
+//      println("UFO ha sparato!"); // debug
+//      break;
+//    }
+//  }
+//}
+
+void sparaAstronave() {
+    for (oggettoGioco ogg : oggetti) {
+      if (ogg instanceof Astronave) {
+        PVector dir = PVector.sub(ogg.pos, this.pos).normalize().mult(4);
+        oggetti.add(new Proiettile(pos.copy(), dir, false));
+        println("UFO ha sparato un proiettile");
+        break;
+      }
     }
   }
-}
+
 
 
   boolean fuoriSchermo() {
@@ -74,17 +96,18 @@ class UFO extends oggettoGioco {
           this.vite = 0;
           p.vite = 0;
           punti += 150;
+          testiAnimati.add(new testoAnimato(pos.copy(), "+150"));
         }
 
         // Se il proiettile è del nemico e colpisce l’astronave
-        if (!p.daGiocatore && dist(pos.x, pos.y, p.pos.x, p.pos.y) < d / 2 + p.d / 2) {
-          vita--;
-          p.vite = 0;
-          flash = 5;
-          if (vita <= 0) {
-            mode = FINE;
-          }
-        }
+        //if (!p.daGiocatore && dist(pos.x, pos.y, p.pos.x, p.pos.y) < d / 2 + p.d / 2) {
+        //  vita--;
+        //  p.vite = 0;
+        //  flash = 5;
+        //  if (vita <= 0) {
+        //    mode = FINE;
+        //  }
+        //}
       }
     }
   }

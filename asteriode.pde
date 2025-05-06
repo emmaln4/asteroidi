@@ -67,9 +67,13 @@ class Asteriode extends oggettoGioco {
           }
 
           // Points
-          if (vite == 3) punti += 20;
-          else if (vite == 2) punti += 50;
-          else punti += 100;
+          int puntiPerQuesto =0 ;
+          if (vite == 3) puntiPerQuesto = 20;
+          else if (vite == 2) puntiPerQuesto = 50;
+          else puntiPerQuesto = 100;
+          
+          punti += puntiPerQuesto;
+          testiAnimati.add(new testoAnimato(pos.copy(), "+" + puntiPerQuesto));
 
           vite = 0;
           ogg.vite = 0;
@@ -85,8 +89,12 @@ class Asteriode extends oggettoGioco {
           nave.vite--;
           vite = 0;
           vita--;
+          
           if (vita >= 1) flash = 5;
-          if (vita == 0) mode = FINE;
+          if (mioAstronave.vite == 0) {
+          risultatoFinale = "game over";
+          mode = FINE;
+          }
         }
       }
     }
@@ -100,7 +108,12 @@ class Asteriode extends oggettoGioco {
       }
     }
 
-    if (numAsteriodi == 0) {
+    if (numAsteriodi == 0 && vita > 0) {
+      risultatoFinale = "you won!";
+      mode = FINE;
+    }
+    if (vita <= 0) {
+      risultatoFinale = "game over";
       mode = FINE;
     }
   }
